@@ -1,13 +1,27 @@
-import { gql } from '@apollo/client'
+// import { gql } from "@apollo/client";
 
-export const typeDefs = gql`
-  type User {
-    id: ID!
-    name: String!
-    status: String!
-  }
+export const typeDefs = `
+type Movie {
+    title: String
+    year: Int
+    imdbRating: Float
+    genres: [Genre] @relationship(type: "IN_GENRE", direction: "OUT")
+}
 
-  type Query {
-    viewer: User
-  }
-`
+type Genre {
+    name: String
+    movies: [Movie] @relationship(type: "IN_GENRE", direction: "IN")
+}
+
+type User {
+  id: ID!
+  name: String!
+  status: String!
+}
+
+type Query {
+  hello: String!,
+  viewer: User!
+}
+
+`;
